@@ -1,26 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Todo } from 'src/models/todo';
 import { TodoService } from 'src/services/todo.service';
+
+
 
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
-  styleUrls: ['./todos.component.scss']
+  styleUrls: ['./todos.component.scss', '../filter/filter.component.scss']
 })
 export class TodosComponent implements OnInit{
-  todos: Todo[] = [];
+  todos_todos: Todo[] = this.todoService.getTodos();
   editTodo!: Todo;
+  edit: string = "lesko";
+  darkModeTrue?: boolean;
+  public hoveredTodo: Todo | null = null; // Assuming Todo is the type of your todos
+
+
+  public setHoveredTodo(todo: Todo): void {
+    this.hoveredTodo = todo;
+  }
+  
+  public clearHoveredTodo(): void {
+    this.hoveredTodo = null;
+  }
+  @Output() changeTheme = new EventEmitter<boolean>();
+
 
   constructor(private todoService: TodoService, private router:Router){
 
   }
   ngOnInit(): void {
-    this.todos = this.todoService.getTodos();
+
   }
 
-  public openModal(mode: string, todo?: Todo): void {
+  public openModal(mode: string, id?: number): void {
     const container = document.getElementById('todos');
     const button = document.createElement('button');
     button.type = 'button';
@@ -34,53 +50,102 @@ export class TodosComponent implements OnInit{
     if (mode === 'edit') {
       console.log('1');
       button.setAttribute('data-target', '#updateEmployeeModal');
-      
-      if (todo){
-        console.log(2);
-        this.editTodo = todo;
-
+      console.log(2);
+      if(id){
+        this.editTodo = this.todos_todos[id-1];
       }
-
     }
 
     container?.appendChild(button);
     button.click();
   }
 
-  // if (mode === 'delete') {
-    //   this.deleteEmployeer = employee!;
-    //   button.setAttribute('data-target', '#deleteEmployeeModal');
-    // }
 
   addTodo(addForm: NgForm) {
     if (addForm.valid) {
-      this.todos.push(
+      this.todos_todos.push(
         {
-          'id': this.todos.length + 1,
+          'id': this.todos_todos.length + 1,
           'title': addForm.value.name,
           'status': "Incomplete"
         }
       );
     }
+    console.log(this.todoService.getTodos());
+    
     const button = document.getElementById('add-employee-form');
     button?.click();
     addForm.reset()
   }
 
-  editFormiko(editForm: NgForm, todo: Todo) {
-    if(editForm.value){
-      todo.title = editForm.value.title;
+
+  onSubmit(editForm: NgForm, todo: Todo) {
+    const inputValue = editForm.value.note;
+  
+    if (inputValue.trim() === '') {
+      todo.title = todo.title || "Change failed !";
+    } else {
+      todo.title = inputValue;
     }
 
     const button = document.getElementById('edit-employee-form');
     button?.click();
   }
   deleteBlog(id: number){
-    this.todos = this.todos.filter((todo) => todo.id !== id);
-    console.log(this.todos);
-    
-    // delete this.todos[id-1]
+    this.todoService.deleteBlog(id);
+    delete this.todos_todos[id-1]
   }
 
+
+  //search
+
+  searchBooks(key: string){
+    let cloneBooks: Todo[] = this.todoService.getTodos();
+
+    
+    const results: Todo[] = [];
+    for (const todo of cloneBooks) {
+      if (todo.title.toLowerCase().indexOf(key.toLowerCase()) !== -1){
+        results.push(todo);
+      }
+    }
+    this.todos_todos =  results;
+    if (!key) {
+      this.todos_todos =  this.todoService.getTodos();
+    }
+  }
+
+
+
+
+  //checkbox
+  onCheckboxChange(todo: Todo){
+    let id = todo.id;
+    this.todoService.onCheckboxChange(todo);
+    this.todos_todos =  this.todos_todos.map(todo =>
+      todo.id === id ? { ...todo, status: todo.status === "completed" ? "Incomplete" : "completed" } : todo
+    );
+  }
+
+
+  selectTodos(event: any){
+    let cloniko : Todo[] = this.todoService.getTodos();
+    
+    const selectedValue = event.target.value;
+    if (selectedValue === 'All') {
+      this.todos_todos =  cloniko;
+    }else{
+      this.todos_todos =  this.todoService.getTodos();
+      this.todos_todos =  this.todos_todos.filter((todo) => selectedValue === todo.status)
+      
+    }
+  }
+
+
+
+  themeChange(darkMode: boolean){
+    this.darkModeTrue = !darkMode;
+    this.changeTheme.emit(darkMode);
+  }
 
 }

@@ -1,0 +1,34 @@
+<h3 class="todoList" [class.color]="darkMode" style="margin-bottom: 30px;">TODO LIST</h3>
+<div class="filter">
+  <form>
+    <input [class.darkSearch]="darkMode" [class.search]="!darkMode" (ngModelChange)="searchBooks(key.value)"
+      #key="ngModel" ngModel name="key" type="text" placeholder="Search note..." name="search">
+    <button class="float-search" [class.darkButton]="darkMode" [class.lightButton]="!darkMode" type="submit"><i
+        class="fa fa-search" [class.darkfa]="darkMode" [class.lightfa]="!darkMode"></i></button>
+  </form>
+  <div class="switches">
+    <select name="" id="" (change)="selectChange($event)" class="select">
+      <option value="All">All</option>
+      <option value="completed">Complete</option>
+      <option value="Incomplete">Incomplete</option>
+    </select>
+    <button (click)="themeChange(darkMode)" class="theme btn">
+      <i class="fa-solid" [class.fa-moon]="!darkMode" [class.fa-sun]="darkMode"></i>
+    </button>
+  </div>
+
+</div>
+
+<!-- <h1 class="todoList">TODO LIST</h1>
+<div class="filter">
+  <form (ngSubmit)="searchBooks(key.value)">
+    <input #key="ngModel" ngModel name="key" type="text" placeholder="Search note..." class="search" name="search">
+    <button type="submit"><i class="fa fa-search"></i></button>
+  </form>
+  <select name="" id="" (change)="selectChange($event)">
+    <option value="All">All</option>
+    <option value="completed">Completed</option>
+    <option value="Incomplete">Incomplete</option>
+  </select>
+  <i class="fa-regular fa-moon"></i>
+</div> -->

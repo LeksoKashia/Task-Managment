@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'todo';
+  constructor(private renderer: Renderer2) { }
+
+
+
+  themeChange(darkMode: boolean){
+    if (darkMode) {
+      this.renderer.setStyle(document.body, 'background-color', 'white');
+    }else{
+      this.renderer.setStyle(document.body, 'background-color', 'rgba(37, 37, 37, 1)');
+    }
+  }
+  // rgba(37, 37, 37, 1)
+
+
 }

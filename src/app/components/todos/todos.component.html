@@ -1,17 +1,49 @@
-<div class="todos" id="todos">
-  <div class="todo-container" *ngFor="let todo of todos">
-    <div class="todo" *ngIf="todo">
-      <div class="todos-text">
-        <input type="checkbox">
-        <h2>{{todo.title}}</h2>
+<app-filter (changeSearch)="searchBooks($event)" (changeSelect)="selectTodos($event)"
+  (changeTheme)="themeChange($event)"></app-filter>
+
+
+<div class="todos" [class.color]="darkModeTrue" id="todos">
+  <div>
+    <div class="todo-container" *ngFor="let todo of todos_todos" (mouseenter)="setHoveredTodo(todo)"
+      (mouseleave)="clearHoveredTodo()">
+      <!-- ... existing code ... -->
+      <div class="todo" *ngIf="todo">
+        <div class="todos-text">
+          <input type="checkbox" [checked]="todo.status === 'completed'" (change)="onCheckboxChange(todo)"
+            class="checkbox">
+          <h3 style="margin: 0;" [ngClass]="todo.status">{{todo.title}}</h3>
+        </div>
+        <div class="actions" *ngIf="hoveredTodo === todo">
+          <button (click)="openModal('edit', todo.id)" style="background-color: rgba(240, 248, 255, 0); border: 0;"><i
+              class="fa-solid fa-pen grey"></i></button>
+          <button (click)="deleteBlog(todo.id)" style="background-color: rgba(240, 248, 255, 0); border: 0;"><i
+              class="fa-solid fa-trash grey"></i></button>
+        </div>
       </div>
-      <div class="actions">
-        <button (click)="openModal('edit', todo)"><i class="fa-regular fa-edit"></i></button>
-        <button (click)="deleteBlog(todo.id)"><i class="fa-regular fa-trash"></i></button>
-      </div>
+      <!-- ... existing code ... -->
+      <hr *ngIf="todo">
     </div>
-    <hr *ngIf="todo">
+
+
   </div>
+
+  <!-- 
+  <div *ngIf="cloniko">
+    <div class="todo-container" *ngFor="let todo of cloniko">
+      <div class="todo" *ngIf="todo">
+        <div class="todos-text">
+          <input type="checkbox" [checked]="todo.status === 'completed'" (change)="onCheckboxChange(todo)">
+          <h2 [ngClass]="todo.status">{{todo.title}}</h2>
+        </div>
+        <div class="actions">
+          <button (click)="openModal('edit', todo)"><i class="fa-regular fa-edit"></i></button>
+          <button (click)="deleteBlog(todo.id)"><i class="fa-regular fa-trash"></i></button>
+        </div>
+      </div>
+      <hr *ngIf="todo">
+    </div>
+  </div> -->
+
   <button class="add" (click)="openModal('add')">
     <i class="fa-solid fa-plus"></i>
   </button>
@@ -21,15 +53,16 @@
 <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" style="margin-top: 150px;" role="document">
-    <div class="modal-content">
-      <h3>NEW NOTE</h3>
+    <div class="modal-content" [class.darkModal]="darkModeTrue">
+      <h3 style="padding: 10px;" [class.color]="darkModeTrue">NEW NOTE</h3>
       <form #addForm="ngForm" class="addform" (ngSubmit)="addTodo(addForm)">
-        <input ngModel type="text" name="name" id="name" placeholder="input your note" required />
+        <input [class.add-edit-input]="!darkModeTrue" [class.add-edit-input-dark]="darkModeTrue" ngModel type="text"
+          name="name" id="name" placeholder="input your note" required />
         <div class="modal-footer">
           <button type="button" id="add-employee-form" class="btn btn-secondary close" data-dismiss="modal">
             Cancel
           </button>
-          <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">
+          <button [disabled]="addForm.invalid" [class.block]="addForm.invalid" type="submit" class="btn btn-primary">
             Apply
           </button>
         </div>
@@ -39,38 +72,21 @@
 </div>
 
 <!-- edit -->
-<!-- <div *ngIf="editTodo" class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog"
-  aria-labelledby="updateEmployeeModalLabel" aria-hidden="true">
-  <div class="modal-dialog" style="margin-top: 150px;" role="document">
-    <div class="modal-content">
-      <h3>NEW NOTE</h3>
-      <form #editForm="ngForm" class="addform" >
-        <input type="text" [(ngModel)]="editTodo.title" name="title" id="name" placeholder="input your note" required />
-        <div class="modal-footer">
-          <button type="button" id="edit-employee-form" class="btn btn-secondary close" data-dismiss="modal">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary">
-            Apply
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
-
 <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
   aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog" style="margin-top: 150px;" role="document">
     <div class="modal-content">
-      <h3>Edit Note</h3>
-      <form #editForm="ngForm" (ngSubmit)="editFormiko(editForm.value, editTodo)">
-        <input ngModel type="text" id="name" placeholder="input your note" required />
+      <h3 style="padding: 10px;" [class.color]="darkModeTrue">Edit Note</h3>
+      <form #editForm="ngForm">
+        <input [class.add-edit-input]="!darkModeTrue" [class.add-edit-input-dark]="darkModeTrue" *ngIf="editTodo"
+          type="text" [(ngModel)]="editTodo.title" name="note" id="name" placeholder="input your note" required />
         <div class="modal-footer">
-          <button type="button" id="add-employee-form" class="btn btn-secondary close" data-dismiss="modal">
+          <button type="button" (click)="onSubmit(editForm, editTodo)" id="edit-employee-form"
+            class="btn btn-secondary close" data-dismiss="modal">
             Cancel
           </button>
-          <button type="submit" class="btn btn-primary">
+          <button (click)="onSubmit(editForm, editTodo)" [disabled]="editForm.invalid" [class.block]="editForm.invalid"
+            type="submit" class="btn btn-primary">
             Apply
           </button>
         </div>
@@ -78,82 +94,3 @@
     </div>
   </div>
 </div>
-
-<button type="button" data-toggle="modal" data-target="#updateEmployeeModal">jiqsss</button>
-
-<!-- edit -->
-<!-- <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="updateEmployeeModalLabel">Edit Employee</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form #editForm="ngForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp"
-              placeholder="Name" />
-          </div>
-          <input type="hidden" name="id" class="form-control" id="id" placeholder="Email" />
-          <input type="hidden" name="userCode" class="form-control" id="userCode" placeholder="Email" />
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" name="email" class="form-control" id="email" placeholder="Email" />
-          </div>
-          <div class="form-group">
-            <label for="phone">Job title</label>
-            <input type="text" name="jobTitle" class="form-control" id="jobTitle" placeholder="Job title" />
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" name="phone" class="form-control" id="phone" name="phone" placeholder="Phone" />
-          </div>
-          <div class="form-group">
-            <label for="phone">Image URL</label>
-            <input type="text" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" />
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">
-              Close
-            </button>
-            <button data-dismiss="modal" class="btn btn-primary">
-              Save changes
-            </button>
-
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
-<!-- <div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="addEmployeeModalLabel">New Note</h5>
-    </div>
-    <div class="modal-body">
-      <form #addForm="ngForm">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input ngModel type="text" name="name" class="form-control" id="name" placeholder="Name" required />
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="add-employee-form" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
-          <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">
-            Save changes
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->

@@ -10,45 +10,56 @@ export class TodoService {
   todos : Todo[] = [
     {
       'id': 1,
-      'title': "note 1",
+      'title': "Note 1",
       'status': 'Incomplete'
     },
 
     {
       'id': 2,
-      'title': "note 2",
+      'title': "Note 2",
       'status': 'Incomplete'
     },
 
     {
       'id': 3,
-      'title': "note 3",
+      'title': "Note 3",
       'status': 'Incomplete'
     },
 
     
   ]
+  onCheckboxChange(todo: Todo){
+    let id = todo.id;
+    this.todos = this.todos.map(todo =>
+      todo.id === id ? { ...todo, status: todo.status === "completed" ? "Incomplete" : "completed" } : todo
+    );
+  }
 
-  constructor(private router: Router) {}
+  deleteBlog(id:number){
+    delete this.todos[id-1]
+
+  }
+
   getTodos() {
+    console.log(123);
+    console.log(this.todos);
+    
+    
     return this.todos;
   }
   
-  // addBook(bookForm: NgForm) {
-  //   if (bookForm.valid) {
-  //     this.books.push(
+  // addTodo(addForm: NgForm) {
+  //   if (addForm.valid) {
+  //     this.todos.push(
   //       {
-  //         'id': this.books.length + 1,
-  //         'title': bookForm.value.title,
-  //         'description': bookForm.value.description,
-  //         'publishYear': bookForm.value.publishYear,
-  //         'author': bookForm.value.author,
-  //         'imageUrl': bookForm.value.imageUrl
+  //         'id': this.todos.length + 1,
+  //         'title': addForm.value.name,
+  //         'status': "Incomplete"
   //       }
   //     );
   //   }
-
-  //   this.router.navigate(['/']);
+  //   console.log(this.todos);
+    
 
   // }
 

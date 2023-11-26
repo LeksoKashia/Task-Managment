@@ -1,0 +1,151 @@
+
+.filter{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+form{
+  position: relative;
+}
+
+
+.todoList{
+  text-align: center;
+}
+
+.color{
+  color: white;
+}
+
+.theme{
+  background-color: #6C63FF;
+}
+
+.select{
+  background-color: #6C63FF;
+  padding: 7px;
+  border-radius: 5px;
+  color: white;
+  border: 0;
+  outline: none;
+}
+
+.select:active{
+  border: 0;
+}
+
+i{
+  color: white;
+}
+
+//search
+
+.search, .add-edit-input{
+  border:1px solid #6C63FF;
+  border-radius: 4px;
+  padding: 5px;
+  outline: none;
+  color: #6C63FF;
+}
+
+.search, .darkSearch, .add-edit-input,  .add-edit-input-dark{
+  width: 600px;
+  height: 35px;
+}
+
+.search::placeholder, .add-edit-input::placeholder{
+  color:#6C63FF ;
+}
+
+.search:focus, .add-edit-input:focus{
+  border: 2px solid #6C63FF;
+}
+
+.darkSearch, .add-edit-input-dark{
+  border:1px solid #ffffff;
+  border-radius: 4px;
+  padding: 5px;
+  outline: none;
+  background-color: rgba(37, 37, 37, 1);
+  color: white;
+}
+
+.darkSearch::placeholder, .add-edit-input-dark::placeholder{
+  color: white ;
+}
+
+.darkSearch:focus, .add-edit-input-dark:focus{
+  border: 2px solid #ffffff;
+}
+
+//search button
+
+.float-search{
+  border: 0;
+  position: absolute;
+  right: 5px;
+  top: 4px;
+}
+
+
+.darkButton{
+  background-color: rgba(37, 37, 37, 1);
+}
+
+.lightButton{
+  background-color: white;
+}
+
+.darkfa{
+  color: #ffffff;
+}
+
+.lightfa{
+  color: #6C63FF;
+}
+
+
+.block{
+  background-color: #6b63ff78;
+}
+
+.switches{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+@media only screen and (max-width: 800px) {
+  .filter {
+    flex: none;
+    flex-direction: column;
+  }
+
+  .switches{
+    margin-bottom: 30px;
+  }
+
+}
+
+
+@media only screen and (max-width: 620px) {
+  .search, .darkSearch{
+    width: 400px;
+  }
+
+}
+
+
+@media only screen and (max-width: 400px) {
+  .search, .darkSearch{
+    width: 300px;
+  }
+
+  
+
+}
