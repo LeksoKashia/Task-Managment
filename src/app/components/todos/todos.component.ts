@@ -17,7 +17,8 @@ export class TodosComponent implements OnInit{
   edit: string = "lesko";
   darkModeTrue?: boolean;
   delTodo?: Todo;
-  public hoveredTodo: Todo | null = null; // Assuming Todo is the type of your todos
+  count: number = this.todos_todos.length;
+  public hoveredTodo: Todo | null = null;
 
 
   public setHoveredTodo(todo: Todo): void {
@@ -70,6 +71,7 @@ export class TodosComponent implements OnInit{
 
   addTodo(addForm: NgForm) {
     if (addForm.valid) {
+      this.count++;
       this.todos_todos.push(
         {
           'id': this.todos_todos.length + 1,
@@ -99,6 +101,7 @@ export class TodosComponent implements OnInit{
     button?.click();
   }
   deleteBlog(id: number){
+    this.count--;
     this.todoService.deleteBlog(id);
     delete this.todos_todos[id-1]
   }

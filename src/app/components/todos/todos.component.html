@@ -98,3 +98,11 @@
 
 <app-delete-todo [delTodo]="delTodo" [darkModeTrue]="darkModeTrue"
   (deleteSelected)="deleteBlog($event)"></app-delete-todo>
+
+
+
+<div *ngIf="count === 0" style="text-align: center;">
+  <img src="../../../assets/Detective-check-footprint 1.png" alt="">
+  <br>
+  <h3 [class.color]="darkModeTrue" style="font-weight: 200;">Empty...</h3>
+</div>
