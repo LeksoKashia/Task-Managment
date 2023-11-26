@@ -16,6 +16,7 @@ export class TodosComponent implements OnInit{
   editTodo!: Todo;
   edit: string = "lesko";
   darkModeTrue?: boolean;
+  delTodo?: Todo;
   public hoveredTodo: Todo | null = null; // Assuming Todo is the type of your todos
 
 
@@ -36,7 +37,7 @@ export class TodosComponent implements OnInit{
 
   }
 
-  public openModal(mode: string, id?: number): void {
+  public openModal(mode: string, id?: number, todo?: Todo): void {
     const container = document.getElementById('todos');
     const button = document.createElement('button');
     button.type = 'button';
@@ -55,6 +56,12 @@ export class TodosComponent implements OnInit{
         this.editTodo = this.todos_todos[id-1];
       }
     }
+
+    if (mode === 'delete') {
+      this.delTodo = todo;
+      button.setAttribute('data-target', '#deleteEmployeeModal');
+    }
+
 
     container?.appendChild(button);
     button.click();

@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { TodosComponent } from './components/todos/todos.component';
 import { FormsModule } from '@angular/forms';
 import { FilterComponent } from './components/filter/filter.component';
+import { DeleteTodoComponent } from './delete-todo/delete-todo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodosComponent,
-    FilterComponent
+    FilterComponent,
+    DeleteTodoComponent
   ],
   imports: [
     BrowserModule,

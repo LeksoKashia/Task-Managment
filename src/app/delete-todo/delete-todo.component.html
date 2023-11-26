@@ -1,0 +1,19 @@
+<div class="modal fade" id="deleteEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" style="margin-top: 150px;" role="document">
+    <div class="modal-content" [class.darkModal]="darkModeTrue">
+      <div class="modal-header">
+        <h5 [class.color]="darkModeTrue" class="modal-title" id="deleteModelLabel">Delete Book</h5>
+      </div>
+      <div class="modal-body">
+        <p [class.color]="darkModeTrue">Are you sure you want to delete "{{delTodo?.title}}" ?</p>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            No
+          </button>
+          <button (click)="deleteBook(delTodo!.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

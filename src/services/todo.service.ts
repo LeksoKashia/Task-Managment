@@ -10,19 +10,19 @@ export class TodoService {
   todos : Todo[] = [
     {
       'id': 1,
-      'title': "Note 1",
-      'status': 'Incomplete'
+      'title': "React task",
+      'status': 'completed'
     },
 
     {
       'id': 2,
-      'title': "Note 2",
+      'title': "Jogging at 8",
       'status': 'Incomplete'
     },
 
     {
       'id': 3,
-      'title': "Note 3",
+      'title': "Swimming at 11",
       'status': 'Incomplete'
     },
 

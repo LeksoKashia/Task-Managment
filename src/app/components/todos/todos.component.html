@@ -16,8 +16,8 @@
         <div class="actions" *ngIf="hoveredTodo === todo">
           <button (click)="openModal('edit', todo.id)" style="background-color: rgba(240, 248, 255, 0); border: 0;"><i
               class="fa-solid fa-pen grey"></i></button>
-          <button (click)="deleteBlog(todo.id)" style="background-color: rgba(240, 248, 255, 0); border: 0;"><i
-              class="fa-solid fa-trash grey"></i></button>
+          <button (click)="openModal('delete',todo.id, todo)"
+            style="background-color: rgba(240, 248, 255, 0); border: 0;"><i class="fa-solid fa-trash grey"></i></button>
         </div>
       </div>
       <!-- ... existing code ... -->
@@ -75,7 +75,7 @@
 <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" style="margin-top: 150px;" role="document">
-    <div class="modal-content">
+    <div class="modal-content" [class.darkModal]="darkModeTrue">
       <h3 style="padding: 10px;" [class.color]="darkModeTrue">Edit Note</h3>
       <form #editForm="ngForm">
         <input [class.add-edit-input]="!darkModeTrue" [class.add-edit-input-dark]="darkModeTrue" *ngIf="editTodo"
@@ -94,3 +94,7 @@
     </div>
   </div>
 </div>
+
+
+<app-delete-todo [delTodo]="delTodo" [darkModeTrue]="darkModeTrue"
+  (deleteSelected)="deleteBlog($event)"></app-delete-todo>
