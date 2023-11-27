@@ -48,28 +48,19 @@ export class TodoService {
     return this.todos;
   }
   
-  // addTodo(addForm: NgForm) {
-  //   if (addForm.valid) {
-  //     this.todos.push(
-  //       {
-  //         'id': this.todos.length + 1,
-  //         'title': addForm.value.name,
-  //         'status': "Incomplete"
-  //       }
-  //     );
-  //   }
-  //   console.log(this.todos);
+  addTodo(addForm: NgForm) {
+    if (addForm.valid) {
+      this.todos.push(
+        {
+          'id': this.todos.length + 1,
+          'title': addForm.value.name,
+          'status': "Incomplete"
+        }
+      );
+    }
     
 
-  // }
-
-  // deleteBook(id: number){
-  //   delete this.books[id - 1];
-  // }
-
-  // getBlogById(bookId: number){
-  //   return this.books[bookId - 1]
-  // }
+  }
 
 
 }

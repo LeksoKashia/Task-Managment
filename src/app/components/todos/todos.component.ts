@@ -70,17 +70,10 @@ export class TodosComponent implements OnInit{
 
 
   addTodo(addForm: NgForm) {
-    if (addForm.valid) {
-      this.count++;
-      this.todos_todos.push(
-        {
-          'id': this.todos_todos.length + 1,
-          'title': addForm.value.name,
-          'status': "Incomplete"
-        }
-      );
-    }
-    console.log(this.todoService.getTodos());
+    this.count++;
+    this.todoService.addTodo(addForm);
+    this.todos_todos = this.todoService.getTodos();
+    console.log(this.todos_todos);
     
     const button = document.getElementById('add-employee-form');
     button?.click();
@@ -103,7 +96,7 @@ export class TodosComponent implements OnInit{
   deleteBlog(id: number){
     this.count--;
     this.todoService.deleteBlog(id);
-    delete this.todos_todos[id-1]
+    this.todos_todos = this.todoService.getTodos();
   }
 
 
@@ -115,7 +108,7 @@ export class TodosComponent implements OnInit{
     
     const results: Todo[] = [];
     for (const todo of cloneBooks) {
-      if (todo.title.toLowerCase().indexOf(key.toLowerCase()) !== -1){
+      if (todo && todo.title.toLowerCase().indexOf(key.toLowerCase()) !== -1){
         results.push(todo);
       }
     }
