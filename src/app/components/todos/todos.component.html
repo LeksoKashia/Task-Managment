@@ -30,54 +30,10 @@
   </button>
 </div>
 
-<!-- add -->
-<!-- <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" style="margin-top: 150px;" role="document">
-    <div class="modal-content" [class.darkModal]="darkModeTrue">
-      <h3 style="padding: 10px;" [class.color]="darkModeTrue">NEW NOTE</h3>
-      <form #addForm="ngForm" class="addform" (ngSubmit)="addTodo(addForm)">
-        <input [class.add-edit-input]="!darkModeTrue" [class.add-edit-input-dark]="darkModeTrue" ngModel type="text"
-          name="name" id="name" placeholder="input your note" required />
-        <div class="modal-footer">
-          <button type="button" id="add-employee-form" class="btn btn-secondary close" data-dismiss="modal">
-            Cancel
-          </button>
-          <button [disabled]="addForm.invalid" [class.block]="addForm.invalid" type="submit" class="btn btn-primary">
-            Apply
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
-
-<!-- edit -->
-<!-- <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" style="margin-top: 150px;" role="document">
-    <div class="modal-content" [class.darkModal]="darkModeTrue">
-      <h3 style="padding: 10px;" [class.color]="darkModeTrue">Edit Note</h3>
-      <form #editForm="ngForm">
-        <input [class.add-edit-input]="!darkModeTrue" [class.add-edit-input-dark]="darkModeTrue" *ngIf="editTodo"
-          type="text" [(ngModel)]="editTodo.title" name="note" id="name" placeholder="input your note" required />
-        <div class="modal-footer">
-          <button type="button" (click)="onSubmit(editForm, editTodo)" id="edit-employee-form"
-            class="btn btn-secondary close" data-dismiss="modal">
-            Cancel
-          </button>
-          <button (click)="onSubmit(editForm, editTodo)" [disabled]="editForm.invalid" [class.block]="editForm.invalid"
-            type="submit" class="btn btn-primary">
-            Apply
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div> -->
 
 
 <app-add-todo [darkModeTrue]="darkModeTrue" (addSelected)="addTodo($event)"></app-add-todo>
+
 <app-edit-todo [editTodo]="editTodo" [darkModeTrue]="darkModeTrue" (editSelected)="onSubmit($event)"></app-edit-todo>
 
 <app-delete-todo [delTodo]="delTodo" [darkModeTrue]="darkModeTrue"
@@ -90,11 +46,3 @@
   <br>
   <h3 [class.color]="darkModeTrue" style="font-weight: 200;">Empty...</h3>
 </div>
-
-
-
-<select name="" id="mySelect" class="select">
-  <option value="All">All</option>
-  <option value="completed">Complete</option>
-  <option value="Incomplete">Incomplete</option>
-</select>

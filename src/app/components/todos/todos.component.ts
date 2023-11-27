@@ -5,7 +5,6 @@ import { Todo } from 'src/models/todo';
 import { TodoService } from 'src/services/todo.service';
 
 
-
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -97,8 +96,6 @@ export class TodosComponent implements OnInit{
     this.count--;
     this.todoService.deleteBlog(id);
     this.todos_todos = this.todoService.getTodos();
-
-    // this.selectTodos("All");
   }
 
 
