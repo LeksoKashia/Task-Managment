@@ -27,3 +27,10 @@ h3{
 .color{
   color: white;
 }
+
+@media only screen and (max-width: 400px) {
+  #name{
+    width: 300px;
+  }
+  
+}
