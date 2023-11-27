@@ -18,6 +18,7 @@ export class TodosComponent implements OnInit{
   darkModeTrue?: boolean;
   delTodo?: Todo;
   count: number = this.todos_todos.length;
+  
   public hoveredTodo: Todo | null = null;
 
 
@@ -50,9 +51,7 @@ export class TodosComponent implements OnInit{
     }
 
     if (mode === 'edit') {
-      console.log('1');
       button.setAttribute('data-target', '#updateEmployeeModal');
-      console.log(2);
       if(id){
         this.editTodo = this.todos_todos[id-1];
       }
@@ -81,22 +80,25 @@ export class TodosComponent implements OnInit{
   }
 
 
-  onSubmit(editForm: NgForm, todo: Todo) {
-    const inputValue = editForm.value.note;
+  onSubmit(arr: any[]) {
+    const inputValue = arr[1].title;
   
     if (inputValue.trim() === '') {
-      todo.title = todo.title || "Change failed !";
+      arr[1].title = arr[1].title || "Change failed !";
     } else {
-      todo.title = inputValue;
+      arr[1].title= inputValue;
     }
 
     const button = document.getElementById('edit-employee-form');
     button?.click();
   }
+  
   deleteBlog(id: number){
     this.count--;
     this.todoService.deleteBlog(id);
     this.todos_todos = this.todoService.getTodos();
+
+    // this.selectTodos("All");
   }
 
 

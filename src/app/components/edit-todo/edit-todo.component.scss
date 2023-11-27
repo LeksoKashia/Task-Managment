@@ -1,0 +1,29 @@
+.modal-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h3{
+  font-family: 'Kanit', sans-serif;
+}
+
+#name{
+  width: 400px;
+  height: 35px;
+}
+
+.modal-footer{
+  margin-top: 100px;
+  border-top: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.darkModal{
+  background-color: rgba(37, 37, 37, 1);
+}
+
+.color{
+  color: white;
+}

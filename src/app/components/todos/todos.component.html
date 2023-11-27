@@ -20,29 +20,10 @@
             style="background-color: rgba(240, 248, 255, 0); border: 0;"><i class="fa-solid fa-trash grey"></i></button>
         </div>
       </div>
-      <!-- ... existing code ... -->
       <hr *ngIf="todo">
     </div>
-
 
   </div>
-
-  <!-- 
-  <div *ngIf="cloniko">
-    <div class="todo-container" *ngFor="let todo of cloniko">
-      <div class="todo" *ngIf="todo">
-        <div class="todos-text">
-          <input type="checkbox" [checked]="todo.status === 'completed'" (change)="onCheckboxChange(todo)">
-          <h2 [ngClass]="todo.status">{{todo.title}}</h2>
-        </div>
-        <div class="actions">
-          <button (click)="openModal('edit', todo)"><i class="fa-regular fa-edit"></i></button>
-          <button (click)="deleteBlog(todo.id)"><i class="fa-regular fa-trash"></i></button>
-        </div>
-      </div>
-      <hr *ngIf="todo">
-    </div>
-  </div> -->
 
   <button class="add" (click)="openModal('add')">
     <i class="fa-solid fa-plus"></i>
@@ -50,7 +31,7 @@
 </div>
 
 <!-- add -->
-<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+<!-- <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" style="margin-top: 150px;" role="document">
     <div class="modal-content" [class.darkModal]="darkModeTrue">
@@ -69,10 +50,10 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
 <!-- edit -->
-<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
+<!-- <div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" style="margin-top: 150px;" role="document">
     <div class="modal-content" [class.darkModal]="darkModeTrue">
@@ -93,8 +74,11 @@
       </form>
     </div>
   </div>
-</div>
+</div> -->
 
+
+<app-add-todo [darkModeTrue]="darkModeTrue" (addSelected)="addTodo($event)"></app-add-todo>
+<app-edit-todo [editTodo]="editTodo" [darkModeTrue]="darkModeTrue" (editSelected)="onSubmit($event)"></app-edit-todo>
 
 <app-delete-todo [delTodo]="delTodo" [darkModeTrue]="darkModeTrue"
   (deleteSelected)="deleteBlog($event)"></app-delete-todo>
@@ -106,3 +90,11 @@
   <br>
   <h3 [class.color]="darkModeTrue" style="font-weight: 200;">Empty...</h3>
 </div>
+
+
+
+<select name="" id="mySelect" class="select">
+  <option value="All">All</option>
+  <option value="completed">Complete</option>
+  <option value="Incomplete">Incomplete</option>
+</select>

@@ -1,0 +1,22 @@
+<div class="modal fade" id="updateEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="employeeEditModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" style="margin-top: 150px;" role="document">
+    <div class="modal-content" [class.darkModal]="darkModeTrue">
+      <h3 style="padding: 10px;" [class.color]="darkModeTrue">Edit Note</h3>
+      <form #editForm="ngForm">
+        <input [class.add-edit-input]="!darkModeTrue" [class.add-edit-input-dark]="darkModeTrue" *ngIf="editTodo"
+          type="text" [(ngModel)]="editTodo.title" name="note" id="name" placeholder="input your note" required />
+        <div class="modal-footer">
+          <button type="button" (click)="onEditTodo(editForm, editTodo!)" id="edit-employee-form"
+            class="btn btn-secondary close" data-dismiss="modal">
+            Cancel
+          </button>
+          <button (click)="onEditTodo(editForm, editTodo!)" [disabled]="editForm.invalid"
+            [class.block]="editForm.invalid" type="submit" class="btn btn-primary">
+            Apply
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

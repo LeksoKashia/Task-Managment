@@ -1,0 +1,20 @@
+<div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="addEmployeeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" style="margin-top: 150px;" role="document">
+    <div class="modal-content" [class.darkModal]="darkModeTrue">
+      <h3 style="padding: 10px;" [class.color]="darkModeTrue">NEW NOTE</h3>
+      <form #addForm="ngForm" class="addform" (ngSubmit)="addTodo(addForm)">
+        <input [class.add-edit-input]="!darkModeTrue" [class.add-edit-input-dark]="darkModeTrue" ngModel type="text"
+          name="name" id="name" placeholder="input your note" required />
+        <div class="modal-footer">
+          <button type="button" id="add-employee-form" class="btn btn-secondary close" data-dismiss="modal">
+            Cancel
+          </button>
+          <button [disabled]="addForm.invalid" [class.block]="addForm.invalid" type="submit" class="btn btn-primary">
+            Apply
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
